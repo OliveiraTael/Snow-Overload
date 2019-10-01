@@ -1,0 +1,71 @@
+<div class="navbar navbar-expand-lg navbar-light" style="background-color: #FFD700;">
+    <a href="home.php" class="navbar-brand"><img src="..\Images\Home\logo.jpg" class="d-block" style="width: 50px; height: 50px;" alt="..."></a>
+    <button class="navbar-toggler" type="button" data-toggle="#main-nav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="#main-nav">
+
+        <nav class="nav navbar-nav h5 p-2">
+
+            {% for item in navigation.items %}
+                {% set active = (navigation.active == item.url) ? 'active' : '' %}
+                <h4><a href="{{item.url}}" class="nav-link {{active}}">{{item.menu}}</a></h4>
+            {% endfor %}
+
+        </nav>
+        
+    </div>
+
+    <section class="header-main shadow-sm">
+	    <div class="container">
+            <div class="row align-items-center">
+	            
+				<div class="col-sm">
+					<div class="search-wrap">
+						<form class="d-flex flex-nowrap form-inline my-2 my-lg-0" method="get" action="search.php">
+							{% set search = (result.query) ? result.query : '' %}
+								<input type="search" name="query" placeholder="Search for a product" class="form-control mr-sm-2" value="{{search}}">
+								<button type="submit" class="d-none d-md-inline btn btn-primary">
+										<i class="fa fa-search"></i>
+								</button>
+						</form>
+					</div>
+				</div>
+				
+				<div class="col-sm">
+		            <div class="widgets-wrap float-right">
+			            <a href="#" class="widget-header mr-3">
+				            <div class="icontext">
+					            <div class="icon-wrap">
+									<i class="icon-sm round border fa fa-shopping-cart"></i>
+								</div>
+					            <div class="text-wrap">
+						            <span class="small badge badge-danger">0</span>
+						            <div>Cart</div>
+					            </div>
+				            </div>
+						</a>
+					</div>
+				</div>
+			            
+                <div class="col-sm">
+                    <a href="#" class="widget-header mr-3">
+				        <div class="icontext">
+					        <div class="icon-wrap">
+								<i class="icon-sm round border fa fa-heart"></i>
+							</div>
+					        <div class="text-wrap">
+								<span class="small badge badge-danger">0</span>
+						        <div>Wish List</div>
+					        </div>
+				        </div>
+			        </a>
+				</div>
+
+            </div> <!-- row.// -->
+	    </div> <!-- container.// -->
+
+    </section>
+    
+</div>

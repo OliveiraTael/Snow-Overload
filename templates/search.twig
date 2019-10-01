@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html lang="en">
+
+    {% include 'partials/head.twig' %}
+
+    <body >
+
+    {% include 'partials/navigation.twig' %}
+
+        <main class="container-fluid" style="padding-top:30px;">
+
+          <nav arial-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="home.php">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Search</li>
+            </ol>
+          </nav>
+
+            {% if result.items | length > 0 %}
+              <div class="row mt-4">
+                <div class="col">
+                  <h4>Your search for "{{result.query}}" returned {{result.items | length}} results in Snowboards.</h4>
+                </div>
+              </div>
+
+              {% for item in result.items %}
+                <div class="row my-2 mt-4">
+                  <div class="col-md-3">
+                    <img class="img-fluid" src="../Images/Snowboards/{{item.image}}">
+                  </div>
+                  <div class="col-md-4">
+                    <h3>{{item.name}}</h4><br>
+                    <h5>{{item.description | slice(0,80) ~ '...' }}</h5><br>
+                    <h4><a class="btn btn-success btn-lg" href="detail_snowboarding.php?product_id={{item.product_id}}">Detail</a></h4><br>
+                  </div>
+                </div>
+              {% endfor %}
+
+                {% else %}
+                <h4>Your search for "{{result.query}}" returned no results in Snowboards.<h4>
+            {% endif %}
+
+            {% if ski_result.items | length > 0 %}
+              <div class="row mt-4">
+                <div class="col">
+                  <h4>Your search for "{{ski_result.query}}" returned {{ski_result.items | length}} results in Skis.</h4>
+                </div>
+              </div>
+
+              {% for item in ski_result.items %}
+                <div class="row my-2 mt-4">
+                  <div class="col-md-3">
+                    <img class="img-fluid" src="../Images/Skis/{{item.image}}">
+                  </div>
+                  <div class="col-md-4">
+                    <h3>{{item.name}}</h4><br>
+                    <h5>{{item.description | slice(0,80) ~ '...' }}</h5><br>
+                    <h4><a class="btn btn-success btn-lg" href="detail_skiing.php?product_id={{item.product_id}}">Detail</a></h4><br>
+                  </div>
+                </div>
+              {% endfor %}
+
+            {% else %}
+              <h4>Your search for "{{ski_result.query}}" returned no results in Skis.<?h4>
+            {% endif %}
+
+        </main>
+
+    </body>
+
+</html>

@@ -1,0 +1,16 @@
+<aside class="categories">
+
+    <nav class="nav flex-column nav-pills">
+        
+        {% set allactive = (categories.active) ? '' : 'active' %}
+
+        <h5><a href="skiing.php" class="nav-link {{allactive}}">All in Skiing</a></h5>
+        
+        {% for category in categories.items %}
+            {% set active = (categories.active == category.category_id) ? 'active' : '' %}
+                <h5><a href="skiing.php?category_id={{category.category_id}}" class="nav-link {{active}}">{{category.category_name}}</a></h5>
+        {% endfor %}
+
+    </nav>
+
+</aside>
