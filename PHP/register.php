@@ -2,6 +2,11 @@
 
 require('../vendor/autoload.php');
 
+//get user's wishlist total
+use snow\WishList;
+$wish = new WishList();
+$wish_total = $wish -> getWishListTotal();
+
 // create account
 use snow\Account;
 
@@ -33,6 +38,7 @@ $template = $twig -> load('register.twig');
 //output the template and pass the data
 echo $template -> render( array(
     'register' => $register,
+    'wish' => $wish_total,
     'navigation' => $navigation,
     'title' => 'Register for an account'
 ) );

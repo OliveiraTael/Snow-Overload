@@ -2,6 +2,11 @@
 
 require('../vendor/autoload.php');
 
+//get user's wishlist total
+use snow\WishList;
+$wish = new WishList();
+$wish_total = $wish -> getWishListTotal();
+
 use snow\Navigation;
 
 $nav = new Navigation();
@@ -25,6 +30,7 @@ $template = $twig -> load('home.twig');
 
 //pass values to twig
 echo $template -> render([
+    'wish' => $wish_total,
     'navigation' => $nav_items,
     'products' => $products_result,
     'ski' => $ski_result,

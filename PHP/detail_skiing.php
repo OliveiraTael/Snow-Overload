@@ -7,6 +7,19 @@ use snow\Navigation;
 $nav = new Navigation();
 $nav_items = $nav -> getNavigation();
 
+use snow\WishList;
+$wish = new WishList();
+$wish_total = $wish -> getWishListTotal();
+
+if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset( $_GET['add'] ) ){
+    $product_id = $_GET['product_id'];
+    //if 'add' == 'list' means the wishlist button has been clicked
+    if( $_GET['add'] == 'list' ){
+        $add = $wish -> addItem($product_id);
+    }
+}
+$wish_total = $wish -> getWishListTotal();
+
 use snow\ProductDetailSki;
 
 //get the product id from url parameter
@@ -32,6 +45,7 @@ $template = $twig -> load('detail_ski.twig');
 //pass values to twig
 echo $template -> render([
     'navigation' => $nav_items,
+    'wish' => $wish_total,
     'detail' => $detail,
     'title' => $detail['product']['name']
 ]);

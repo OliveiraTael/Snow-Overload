@@ -9,7 +9,7 @@ class Database{
     public function __construct(){
 
         try{
-            $this -> connection = mysqli_connect('localhost', 'root', '', 'advanced_web');
+            $this -> connection = mysqli_connect('localhost', 'root', '', 'snow_overload');
 
             //echo "Database connection successful!";
         }

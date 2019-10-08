@@ -28,7 +28,7 @@
                                 <img class="card-img-top" alt="..." src="../Images/Snowboards/{{product.image}}">
                                 <div class="card-body">
                                     <h4 class="product-name">{{product.name}}</h4>
-                                    <h6 class="product-price">{{product.price}}</h6>
+                                    <h6 class="product-price">${{product.price}}</h6>
                                     <p class="product-description">{{product.description | slice(0,150) ~ '...'}}</p>
                                     <a class="btn btn-success btn-lg" href="detail_snowboarding.php?product_id={{product.product_id}}">Detail</a>
                                 </div>

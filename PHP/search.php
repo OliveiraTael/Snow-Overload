@@ -2,6 +2,11 @@
 
 require('../vendor/autoload.php');
 
+//get user's wishlist total
+use snow\WishList;
+$wish = new WishList();
+$wish_total = $wish -> getWishListTotal();
+
 use snow\Search;
 
 if( isset($_GET['query']) ){
@@ -31,6 +36,7 @@ $template = $twig -> load('search.twig');
 //pass values to twig
 echo $template -> render( array(
     'result' => $result,
+    'wish' => $wish_total,
     'ski_result' => $ski_result,
     'navigation' => $nav_items,
     'title' => "Search Result for " . $result['query']

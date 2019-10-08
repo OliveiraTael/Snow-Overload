@@ -47,19 +47,6 @@
 
                                 <hr>
                                     <div class="row">
-                                        <div class="col-sm-5">
-                                            <dl class="dlist-inline">
-                                                <dt>Quantity: </dt>
-                                                    <dd> 
-                                                        <select class="form-control form-control-sm" style="width:70px;">
-                                                            <option> 1 </option>
-                                                            <option> 2 </option>
-                                                            <option> 3 </option>
-                                                        </select>
-                                                    </dd>
-                                            </dl>  <!-- item-property .// -->
-                                        </div> <!-- col.// -->
-                                        
                                         <div class="col-sm-7">
                                             <dl class="dlist-inline">
                                                 <dt>Size:</dt><br>
@@ -75,9 +62,32 @@
                                         </div> <!-- col.// -->
                                     </div> <!-- row.// -->
                                 <hr>
-                            <a href="#" class="btn  btn-warning"> Buy now </a>
-                            <a href="#" class="btn  btn-outline-primary"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
-                            <a class="btn btn-danger" href="#"><i class="fa fa-heart"></i> Add to wishlist</a>
+
+                                <form id="cart-form w-100" method="get">
+                                    <div class="d-flex flex-wrap mt-4">
+                                        <div class="input-group flex-nowrap mr-4" style="min-width:5em;max-width:8em;">
+                                            
+                                            <div class="input-group-prepend">
+                                                <button id="minus" class="btn btn-primary" type="button">&minus;</button>
+                                            </div>
+
+                                            <input id="quantity" type="text" class="form-control text-center" name="quantity" value="1" max="10" min="1" style="min-width:3em;">
+                                            <div class="input-group-append">
+                                                <button id="plus" class="btn btn-primary" type="button">&plus;</button>
+                                            </div>
+
+                                        </div>
+
+                                        <button type="submit" class="btn  btn-outline-primary mr-3" name="add" value="cart">
+                                            <i class="fas fa-shopping-cart"></i>Add to Card
+                                        </button>
+                                        <button type="submit" class="btn btn-danger" name="add" value="list">
+                                            <i class="fa fa-heart"></i>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" name="product_id" value="{{detail.product.product_id}}">
+                                </form>
+
                         </article> <!-- card-body.// -->
                     </aside> <!-- col.// -->
                 </div> <!-- row.// -->
@@ -86,6 +96,29 @@
         </main>
 
     </body>
+
+    <script>
+        // script for add and minus button in detail page
+        $(document).ready(
+            () => {
+                let qty = $('#quantity').val();
+                let max = $('#quantity').attr('max');
+               
+                $('#plus').click( () => {
+                    qty++;
+                    if( qty <= max ){
+                         $('#quantity').val(qty);
+                    }
+                });
+                $('#minus').click( () => {
+                    if( qty > 1 ){
+                        qty--;
+                        $('#quantity').val(qty);
+                    }
+                });
+            }
+        );
+        </script>
 
     {% include 'partials/footer.twig' %}
 
