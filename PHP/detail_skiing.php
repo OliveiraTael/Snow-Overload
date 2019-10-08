@@ -11,6 +11,16 @@ use snow\WishList;
 $wish = new WishList();
 $wish_total = $wish -> getWishListTotal();
 
+//get user's cart total
+use snow\ShoppingCart;
+$cart = new ShoppingCart();
+
+// get the total cart items for the navigation
+$cart_total = $cart -> getCartTotal();
+
+// get the wishlist items for the page
+$cart_items = $cart -> getCartItemsSkis();
+
 if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset( $_GET['add'] ) ){
     $product_id = $_GET['product_id'];
     //if 'add' == 'list' means the wishlist button has been clicked
@@ -46,6 +56,7 @@ $template = $twig -> load('detail_ski.twig');
 echo $template -> render([
     'navigation' => $nav_items,
     'wish' => $wish_total,
+    'cart' => $cart_total,
     'detail' => $detail,
     'title' => $detail['product']['name']
 ]);
