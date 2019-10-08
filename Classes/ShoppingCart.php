@@ -3,6 +3,8 @@
 namespace snow;
 use snow\Database;
 
+use \Exception;
+
 class ShoppingCart extends Database{
 
   private $response = array();
@@ -37,7 +39,7 @@ class ShoppingCart extends Database{
       $this -> errors['cart'] = $exc -> getMessage();
     }
     // query to insert item
-    $add_query = " INSERT INTO shopping_cart_item (cart_id,product_id,quantity,created) VALUES (?, ?, ?, NOW() ) ";
+    $add_query = " INSERT INTO shopping_cart_item (cart_id,product_id,created) VALUES (?, ?, ?, NOW() ) ";
     
     // database stuff
     try{
@@ -45,7 +47,7 @@ class ShoppingCart extends Database{
       if(!$statement){
         throw new Exception('query error');
       }
-      if(!$statement -> bind_param('iii', $cart_id, $product_id, $quantity ) ){
+      if(!$statement -> bind_param('ii', $cart_id, $product_id, $quantity ) ){
         throw new Exception('cannot bind parameter');
       }
       if(!$statement -> execute() ){
