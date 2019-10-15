@@ -9,6 +9,13 @@
     {% include 'partials/navigation.twig' %}
 
         <main class="container" style="padding-top:30px;">
+
+        <nav arial-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="list.php">Wish List</a></li>
+          </ol>
+        </nav>
               
               {% for item in wish_items %}
                 <div class="row my-2 mb-4 py-2 border-bottom border-primary">

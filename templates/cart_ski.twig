@@ -9,6 +9,24 @@
 
         <main class="container" style="padding-top:30px;">
 
+        <nav arial-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="home.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="cart.php">Cart</a></li>
+          </ol>
+        </nav>
+
+          {% if delete %}
+            <div class="alert alert-success position-absolute" style="width:50vw; z-index:999;left:50%;transform:translateX(-50%);">
+              Item deleted successfully
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <script>
+            </script>
+            {% endif %}
+
             {% if cart_items | length > 0 %}
               <div class="row">
                 <div class="col-12">
@@ -34,7 +52,7 @@
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-primary item-quantity-minus">&minus;</button>
                       </div>
-                      <input class="form-control item-quantity" type="number" name="quantity[]" value="{{item.quantity}}" min="1" max="5">
+                      <input class="form-control item-quantity" type="number" name="quantity[]" 	 value="{{item.quantity}}" min="1" max="5">
                       <div class="input-group-append">
                         <button type="button" class="btn btn-primary item-quantity-plus">&plus;</button>
                       </div>

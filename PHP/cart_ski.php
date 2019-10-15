@@ -19,7 +19,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset( $_GET['delete'] ) ){
   $product_id = $_GET['delete'];
   $cart_id = $_GET['cart_id'];
   $delete = $cart -> removeItem( $cart_id, $product_id );
-  //print_r( $delete );
+}
+else{
+  $delete = '';
 }
 if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset( $_GET['checkout'] ) ){
   //print_r($_GET);
@@ -48,6 +50,7 @@ $template = $twig -> load('cart_ski.twig');
 
 //output the template and pass the data
 echo $template -> render( array(
+  'delete' => $delete,
   'navigation' => $navigation,
   'wish' => $wish_total,
   'cart_count' => $cart_total,

@@ -36,7 +36,6 @@ class ShoppingCart extends Query{
       // find the user's items in database
       $cart_id = $this -> getCartId();
       $db_items = $this -> getCartItemsSkis( $cart_id );
-      $db_items = $this -> getCartItemsSnowboards( $cart_id );
       // find the user's items in SESSION
       if( is_array($_SESSION['cart']['items']) ){
         //for each item in the session, see if it's already in the database cart
@@ -126,6 +125,7 @@ class ShoppingCart extends Query{
                           product_ski.name,
                           product_ski.price,
                           product_ski.description,
+                          product_ski.color,
                           product_quantity.quantity AS available,
                           ( SELECT @image_id := product_image_ski.image_id FROM product_image_ski WHERE product_image_ski.product_id = @product_id LIMIT 1 ) AS image_id,
                           ( SELECT image_file_name FROM image WHERE image.image_id = @image_id ) AS image
@@ -157,83 +157,6 @@ class ShoppingCart extends Query{
                   FROM product_ski
                   INNER JOIN product_quantity
                   ON product_ski.product_id = product_quantity.product_id";
-
-        // build a query for each product
-        $conditionals = array();
-        $product_ids = array();
-        $quantities = array();
-        foreach( $_SESSION['cart']['items'] as $product ){
-          array_push( $conditionals, "product.product_id=?" );
-          array_push( $product_ids, $product['product_id'] );
-          array_push( $quantities, $product['quantity'] );
-        }
-        $str = implode(" OR ", $conditionals );
-        // add conditionals to query
-        $query = $query . " WHERE " . $str;
-        //run the query
-        $cart_result = $this -> run( $query, $product_ids );
-        $response['items'] = $cart_result['data'];
-        //add quantity data to each result
-        foreach( $response['items'] as $index => $item ){
-          $response['items'][$index]['quantity'] = $quantities[$index];
-        }
-      }
-    }
-    //add total to the response
-    if( is_array($response['items']) ){
-      $total = 0;
-      foreach( $response['items'] as $item ){
-        $total = $total + ( $item['price'] * $item['quantity'] );
-      }
-      $response['total'] = $total;
-    }
-    return $response;
-  }
-
-  public function getCartItemsSnowboards( $cart_id ){
-
-    $response = array();
-    
-    if( $this -> account_id ){
-
-      //get the items from database
-      $get_items_query = "SELECT @product_id := shopping_cart_item.product_id AS product_id,
-                          HEX( shopping_cart_item.cart_id ) AS cart_id,
-                          shopping_cart_item.quantity AS quantity,
-                          product_snowboarding.name,
-                          product_snowboarding.price,
-                          product_snowboarding.description,
-                          product_quantity.quantity AS available,
-                          ( SELECT @image_id := product_image_snowboarding.image_id FROM product_image_snowboarding WHERE product_image_snowboarding.product_id = @product_id LIMIT 1 ) AS image_id,
-                          ( SELECT image_file_name FROM image WHERE image.image_id = @image_id ) AS image
-                          FROM shopping_cart_item 
-                          INNER JOIN product_snowboarding
-                          ON shopping_cart_item.product_id = product_snowboarding.product_id
-                          INNER JOIN product_quantity
-                          ON product_quantity.product_id = product_snowboarding.product_id
-                          WHERE cart_id = UNHEX( ? );";
-
-      $cart_result = $this -> run( $get_items_query, array($cart_id) );
-      $response['items'] = $cart_result['data'];
-    }
-    else{
-      if( !isset( $_SESSION['cart']) ){
-        $items = array();
-        return $items;
-      }
-      if( isset( $_SESSION['cart']['items']) && is_array( $_SESSION['cart']['items'] ) ){
-        // if id matches cart_id, return the items, otherwise an empty array
-        //get images and product details for each product
-        $query = "SELECT @product_id := product_snowboarding.product_id AS product_id,
-                  product_snowboarding.name,
-                  product_snowboarding.description,
-                  product_snowboarding.price,
-                  product_quantity.quantity as available,
-                  ( SELECT @image_id := product_image_snowboarding.image_id FROM product_image_snowboarding WHERE product_image_snowboarding.product_id = @product_id LIMIT 1 ) AS image_id,
-                  ( SELECT image_file_name FROM image WHERE image.image_id = @image_id ) AS image
-                  FROM product_snowboarding
-                  INNER JOIN product_quantity
-                  ON product_snowboarding.product_id = product_quantity.product_id";
 
         // build a query for each product
         $conditionals = array();

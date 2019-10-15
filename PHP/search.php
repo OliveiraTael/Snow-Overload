@@ -38,7 +38,7 @@ $template = $twig -> load('search.twig');
 //pass values to twig
 echo $template -> render( array(
     'result' => $result,
-    'wish_count' => $wish_total,
+    'wish' => $wish_total,
     'cart_count' => $cart_total,
     'ski_result' => $ski_result,
     'navigation' => $nav_items,
