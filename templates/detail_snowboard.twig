@@ -12,7 +12,7 @@
             <nav arial-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="home.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="snowboarding.php">Snowboarding</a></li>
+                    <li class="breadcrumb-item"><a href="skiing.php">Skiing</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{detail.product.name}}</li>
                 </ol>
             </nav>
@@ -50,6 +50,7 @@
                                         <div class="col-sm-7">
                                             <dl class="dlist-inline">
                                                 <dt>Size:</dt><br>
+
                                                     {% for size in detail.sizes %}
                                                         <dd>
                                                             <label class="form-check form-check-inline">
@@ -58,6 +59,7 @@
                                                             </label>
                                                         </dd>
                                                     {% endfor %}
+                                                    
                                             </dl>  <!-- item-property .// -->
                                         </div> <!-- col.// -->
                                     </div> <!-- row.// -->
@@ -77,17 +79,18 @@
                                             </div>
 
                                         </div>
-
-                                        <button type="submit" class="btn  btn-outline-primary mr-3" name="add" value="cart">
+                                        
+                                        <button type="submit" class="btn btn-outline-primary mr-3" name="add" value="cart">
                                             <i class="fas fa-shopping-cart"></i>Add to Card
                                         </button>
+                                        
                                         <button type="submit" class="btn btn-danger" name="add" value="list">
                                             <i class="fa fa-heart"></i>
                                         </button>
                                     </div>
                                     <input type="hidden" name="product_id" value="{{detail.product.product_id}}">
-
-                                    <div class="fb-share-button mt-4" data-href="https://detail_skiing.php?product_id={{product.product_id}}" data-layout="button" data-size="large">
+                                    
+                                    <div class="fb-share-button mt-4" data-href="https://detail_snowboarding.php?product_id={{product.product_id}}" data-layout="button" data-size="large">
                                         <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdetail_skiing.php%2F%3Fproduct_id%3D%257B%257Bproduct.product_id%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
                                     </div>
 
@@ -126,6 +129,17 @@
                 });
             }
         );
+        </script>
+
+        <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
         </script>
 
     {% include 'partials/footer.twig' %}

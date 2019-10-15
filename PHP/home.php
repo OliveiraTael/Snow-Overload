@@ -4,8 +4,12 @@ require('../vendor/autoload.php');
 
 //get user's wishlist total
 use snow\WishList;
-$wish = new WishList();
-$wish_total = $wish -> getWishListTotal();
+$wish_list = new WishList();
+$wish_total = $wish_list -> getWishListTotal();
+
+use snow\ShoppingCart;
+$cart = new ShoppingCart();
+$cart_total = $cart -> getCartTotal();
 
 use snow\Navigation;
 
@@ -30,8 +34,9 @@ $template = $twig -> load('home.twig');
 
 //pass values to twig
 echo $template -> render([
-    'wish' => $wish_total,
     'navigation' => $nav_items,
+    'wish' => $wish_total,
+    'cart_count' => $cart_total,
     'products' => $products_result,
     'ski' => $ski_result,
     'title' => 'Snow Overload'

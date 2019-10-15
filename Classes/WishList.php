@@ -189,12 +189,12 @@ class WishList extends Database {
 
   public function getWishListItemsSkis(){
     $items_query = "SELECT @product_id := wishlist_item.product_id AS product_id,
-    (SELECT @image_id := product_image_ski.image_id 
-     FROM product_image_ski WHERE product_image_ski.product_id = @product_id LIMIT 1 ) AS image_id,
-    (SELECT image_file_name FROM image WHERE image.image_id = @image_id ) AS image,
-        product_ski.name, product_ski.price, product_ski.description
-        FROM wishlist_item
-        INNER JOIN product_ski ON wishlist_item.product_id = product_ski.product_id WHERE wishlist_item.wishlist_id = ?";
+                    (SELECT @image_id := product_image_ski.image_id 
+                    FROM product_image_ski WHERE product_image_ski.product_id = @product_id LIMIT 1 ) AS image_id,
+                    (SELECT image_file_name FROM image WHERE image.image_id = @image_id ) AS image,
+                        product_ski.name, product_ski.price, product_ski.description
+                        FROM wishlist_item
+                        INNER JOIN product_ski ON wishlist_item.product_id = product_ski.product_id WHERE wishlist_item.wishlist_id = ?";
     
     //get the account id
     $account_id = $this -> getUserAuthStatus();

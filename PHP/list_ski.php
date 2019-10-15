@@ -4,20 +4,24 @@ require('../vendor/autoload.php');
 
 //get user's wishlist total
 use snow\WishList;
-$wish = new WishList();
+$wish_list = new WishList();
+
+use snow\ShoppingCart;
+$cart = new ShoppingCart();
+$cart_total = $cart -> getCartTotal();
 
 if( $_SERVER['REQUEST_METHOD'] == 'GET' && isset( $_GET['action'] ) ){
   $product_id = $_GET['product_id'];
   if( $_GET['action'] == 'delete' ){
-    $delete = $wish -> removeItem( $product_id );
+    $delete = $wish_list -> removeItem( $product_id );
   }
 }
 
 // get the total wishlist items for the navigation
-$wish_total = $wish -> getWishListTotal();
+$wish_total = $wish_list -> getWishListTotal();
 
 // get the wishlist items for the page
-$wish_items = $wish -> getWishListItemsSkis();
+$wish_items = $wish_list -> getWishListItemsSkis();
 
 // create navigation
 use snow\Navigation;
@@ -38,6 +42,7 @@ echo $template -> render( array(
   'navigation' => $navigation,
   'wish' => $wish_total,
   'wish_items' => $wish_items,
+  'cart_count' => $cart_total,
   'title' => "Wish List"
 ) );
 

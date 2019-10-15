@@ -2,11 +2,6 @@
 
 require('../vendor/autoload.php');
 
-//get user's wishlist total
-use snow\WishList;
-$wish = new WishList();
-$wish_total = $wish -> getWishListTotal();
-
 // create account
 use snow\Account;
 
@@ -27,6 +22,14 @@ use snow\Navigation;
 $nav = new Navigation();
 $navigation = $nav -> getNavigation();
 
+use snow\WishList;
+$wish_list = new WishList();
+$wish_total = $wish_list -> getWishListTotal();
+
+use snow\ShoppingCart;
+$cart = new ShoppingCart();
+$cart_total = $cart -> getCartTotal();
+
 //create twig loader for templates
 $loader = new Twig_Loader_Filesystem('../templates');
 
@@ -39,7 +42,8 @@ $template = $twig -> load('login.twig');
 //output the template and pass the data
 echo $template -> render( array(
     'login' => $login,
-    'wish' => $wish_total,
+    'wish_count' => $wish_total,
+    'cart_count' => $cart_total,
     'navigation' => $navigation,
     'title' => 'Login to your account'
 ) );

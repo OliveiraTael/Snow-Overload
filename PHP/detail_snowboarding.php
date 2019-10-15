@@ -33,6 +33,10 @@ if(isset($_GET['product_id']) == false){
 $pd = new ProductDetailSnowboard();
 $detail = $pd -> getProductDetail($_GET['product_id']);
 
+use snow\ShoppingCart;
+$cart = new ShoppingCart();
+$cart_total = $cart -> getCartTotal();
+
 //create twig loader
 $loader = new Twig_Loader_Filesystem('../templates');
 
@@ -45,6 +49,7 @@ $template = $twig -> load('detail_snowboard.twig');
 //pass values to twig
 echo $template -> render([
     'navigation' => $nav_items,
+    'cart_count' => $cart_total,
     'wish' => $wish_total,
     'detail' => $detail,
     'title' => $detail['product']['name']
