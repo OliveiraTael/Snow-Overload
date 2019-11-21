@@ -42,7 +42,7 @@ $template = $twig -> load('login.twig');
 //output the template and pass the data
 echo $template -> render( array(
     'login' => $login,
-    'wish_count' => $wish_total,
+    'wish' => $wish_total,
     'cart_count' => $cart_total,
     'navigation' => $navigation,
     'title' => 'Login to your account'

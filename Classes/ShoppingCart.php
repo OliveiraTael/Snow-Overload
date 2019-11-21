@@ -280,7 +280,7 @@ class ShoppingCart extends Query{
 
       //run is a method inherited from the Query class
       $find_cart = $this -> run( $find_cart_query, array($this -> account_id) );
-      if( $find_cart['data'][0]['cart_id'] ){
+      if( $find_cart['data'][0]['cart_id']){
         $cart_id = $find_cart['data'][0]['cart_id'];
       }
       elseif( $create == true ){
